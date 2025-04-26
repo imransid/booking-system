@@ -1,9 +1,4 @@
-// import { EndTableCheck } from './EndTableCheck/index';
-// import { DefectEntry } from './DefectEntry';
-// import { QCLaunchPad } from './QCLauchPad';
-// import { SetLineStyle } from './SetLineStyle';
-// import { Settings } from './Settings';
-// import { SignInScreen } from './SignIn';
+import HospitalListScreen from './HospitalListScreen';
 import LoginScreen from './LoginScreen';
 
-export { LoginScreen };
+export { LoginScreen, HospitalListScreen };

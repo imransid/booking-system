@@ -18,7 +18,7 @@ const Navigator: FC = () => {
 
   return (
     <>
-      {message ? <AppStackNavigator /> : <AuthStackNavigator />}
+      {!message ? <AppStackNavigator /> : <AuthStackNavigator />}
 
       <Spinner
         visible={globalLoaderStatus}

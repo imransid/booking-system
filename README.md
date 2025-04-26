@@ -16,7 +16,7 @@ It features a clean UI, efficient APIs, scalable architecture, and reliable stat
 - Redux Persist – Persist and rehydrate Redux state
 - Redux Logger – Middleware for logging Redux actions
 - Yup – Schema validation for forms
-- react-native-size-matters – Responsive sizing across devices
+- react-native-size-matters – Responsive sizing across device
 
 **Backend:**
 
@@ -69,8 +69,9 @@ It features a clean UI, efficient APIs, scalable architecture, and reliable stat
 
 ![Login Screen](./screenshots/login-screen.png)
 
-<!--
-### Booking Screen
+![HospitalList Screen](./screenshots/list-screen.png)
+
+<!-- ### Booking Screen
 ![Booking Screen](./screenshots/booking-screen.png)
 
 ### Confirmation Screen
