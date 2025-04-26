@@ -63,6 +63,19 @@ It features a clean UI, efficient APIs, scalable architecture, and reliable stat
 
 ## 🛠️ Installation & Setup
 
+## 📋 Screenshots
+
+### Login Screen
+
+![Login Screen](./screenshots/login-screen.png)
+
+<!--
+### Booking Screen
+![Booking Screen](./screenshots/booking-screen.png)
+
+### Confirmation Screen
+![Confirmation Screen](./screenshots/confirmation-screen.png) -->
+
 ### Frontend
 
 ```bash
@@ -98,6 +111,9 @@ npm install
 
 # Run backend services with Docker
 docker-compose up --build
+
+
+
 📈 Future Improvements
 Push Notifications Integration
 
@@ -120,3 +136,8 @@ This project is licensed under the MIT License.
 
 🔥 Made with passion by Imran Khan (Rafa)
 ```
+
+🔥 Made with passion by Imran Khan (Rafa)
+📧 Email: imran1992@gmail.com
+
+This file provides an overview of the system, including its features, technologies used, installation instructions, and more. It also includes your copyright information and email address. Let me know if you'd like to adjust anything!
