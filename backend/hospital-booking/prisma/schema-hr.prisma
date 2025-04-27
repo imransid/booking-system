@@ -16,21 +16,35 @@ model Hospital {
   imageUrl  String // URL of the hospital image
   createdAt DateTime @default(now()) // Timestamp when the hospital was created
   updatedAt DateTime @updatedAt // Timestamp when the hospital was last updated
+
+  bookings Booking[] // One-to-many relationship with booking model
 }
 
-model booking {
+model Booking {
   id        Int       @id @default(autoincrement())
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
+
+  hospitalId Int // Foreign key to Hospital
+  hospital   Hospital @relation(fields: [hospitalId], references: [id])
+
+  contactNumber  String
+  bookingTime    DateTime
+  bookingDate    DateTime
+  bookingService String
+
+  userID Int
+  user   User @relation(fields: [userID], references: [id])
 }
 
-model user {
+model User {
   id Int @id @default(autoincrement())
 
   firstName String
-  email     String
+  email     String @unique
   password  String
 
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
+  Booking   Booking[]
 }

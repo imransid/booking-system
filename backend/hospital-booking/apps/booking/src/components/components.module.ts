@@ -6,6 +6,11 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { HospitalResolver } from "./hospital/hospital.resolver";
 import { HospitalService } from "./hospital/hospital.service";
 
+import { BookingResolver } from "./booking/booking.resolver";
+import { BookingService } from "./booking/booking.service";
+
+import { UserResolver } from "./user/user.resolver";
+import { UserService } from "./user/user.service";
 @Module({
   imports: [
     PrismaModule,
@@ -20,6 +25,15 @@ import { HospitalService } from "./hospital/hospital.service";
       }),
     }),
   ],
-  providers: [JwtService, ConfigService, HospitalResolver, HospitalService],
+  providers: [
+    JwtService,
+    ConfigService,
+    HospitalResolver,
+    HospitalService,
+    BookingResolver,
+    BookingService,
+    UserResolver,
+    UserService,
+  ],
 })
 export class ComponentsModule {}
