@@ -94,15 +94,12 @@ yarn install
 npm install
 
 # Start the app
-yarn start
+yarn android
 # or
-npm start
 Backend
-bash
-Copy
-Edit
+
 # Navigate to backend
-cd booking-system/backend
+cd booking-system/backend/hospital-booking
 
 # Set up environment variables
 # (Copy .env.example to .env and update values)
@@ -115,6 +112,20 @@ npm install
 # Run backend services with Docker
 docker-compose up --build
 
+please create .env and paste it
+```
+
+JWT_SECRET='ytr4edcvbhgtr4eghgfd'
+
+booking_DATABASE_URI=postgresql://postgres:postgres@booking-db:5434/booking-db?schema=public
+
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USERNAME=intellierlimited.aws@gmail.com
+EMAIL_PASSWORD='rjsf rsxp lpbk qyxf'
+EMAIL_ADDRESS_DEFAULT=https://pokerapi.jumatechs.xyz/
+
+```
 
 
 📈 Future Improvements
