@@ -46,7 +46,7 @@ const HospitalListScreen = () => {
 
   // Callback to handle hospital selection and navigate to another screen
   const handleHospitalSelect = useCallback((hospital: Hospital) => {
-    // navigation.navigate('HospitalServices', { hospital }); // Uncomment for navigation
+    navigation.navigate('AppointmentBookingScreen', { hospital }); // Uncomment for navigation
   }, []);
 
   // Handler for when an image is loaded

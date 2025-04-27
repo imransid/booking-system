@@ -71,6 +71,8 @@ It features a clean UI, efficient APIs, scalable architecture, and reliable stat
 
 ![HospitalList Screen](./screenshots/list-screen.png)
 
+![Booking Screen](./screenshots/booking.png)
+
 <!-- ### Booking Screen
 ![Booking Screen](./screenshots/booking-screen.png)
 
@@ -139,6 +141,4 @@ This project is licensed under the MIT License.
 ```
 
 🔥 Made with passion by Imran Khan (Rafa)
-📧 Email: imran1992@gmail.com
-
-This file provides an overview of the system, including its features, technologies used, installation instructions, and more. It also includes your copyright information and email address. Let me know if you'd like to adjust anything!
+📧 Email: emailofimran1992@gmail.com

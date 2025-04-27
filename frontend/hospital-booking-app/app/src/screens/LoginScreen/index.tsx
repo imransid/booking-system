@@ -2,13 +2,14 @@
 
 import React, { useState } from 'react';
 import { View, TouchableOpacity, ImageBackground } from 'react-native';
-import { TextInput, Button, useTheme, Text, Avatar, } from 'react-native-paper';
+import { TextInput, Text, Avatar, } from 'react-native-paper';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import styles from './styles'; // Assuming you have styles in a separate file
-import ErrorText from '../../components/common/ErrorText'; // Assuming you have a custom error component
-import { loginFormValidationSchema } from '../../utils/formValidation'; // Assuming you have a validation schema
+import { styles } from './styles';
+import ErrorText from '../../components/common/ErrorText';
+import { loginFormValidationSchema } from '../../utils/formValidation';
+import PrimaryButton from '../../components/common/PrimaryButton';
 
 interface ILoginFormData {
     email: string;
@@ -121,16 +122,12 @@ const LoginScreen: React.FC = () => {
                 <ErrorText message={errors.password?.message} />
 
                 {/* Login Button */}
-                <Button
-                    mode="contained"
+                <PrimaryButton
+                    title="Login"
                     onPress={handleSubmit(onSubmit)}
                     loading={loading}
                     disabled={loading}
-                    style={styles.button}
-                    contentStyle={styles.buttonContent}
-                >
-                    Login
-                </Button>
+                />
 
                 {/* SMS Login and Forgot Password */}
                 <View style={styles.row}>

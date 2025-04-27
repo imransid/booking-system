@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { verticalScale, moderateScale, scale } from "react-native-size-matters";
 import { colors } from "../../theme/colors";
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.shineWhite,
@@ -70,5 +70,3 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
 });
-
-export default styles;
