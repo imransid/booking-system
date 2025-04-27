@@ -1,0 +1,36 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["linux-musl-arm64-openssl-3.0.x", "linux-arm64-openssl-3.0.x", "debian-openssl-3.0.x", "darwin-arm64"]
+  output        = "./generated/booking"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("booking_DATABASE_URI")
+}
+
+model Hospital {
+  id        Int      @id @default(autoincrement()) // Unique identifier for each hospital
+  name      String // Name of the hospital
+  services  String[] // Array of services offered by the hospital
+  imageUrl  String // URL of the hospital image
+  createdAt DateTime @default(now()) // Timestamp when the hospital was created
+  updatedAt DateTime @updatedAt // Timestamp when the hospital was last updated
+}
+
+model booking {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model user {
+  id Int @id @default(autoincrement())
+
+  firstName String
+  email     String
+  password  String
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+}
