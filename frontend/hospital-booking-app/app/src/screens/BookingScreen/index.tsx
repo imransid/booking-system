@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, Platform, TouchableOpacity, ScrollView } from 'react-native';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Image } from 'expo-image';
 import { SkeletonLoader } from '../../components';
 import RNPickerSelect from 'react-native-picker-select';
@@ -11,6 +11,11 @@ import * as yup from 'yup';
 import PrimaryButton from '../../components/common/PrimaryButton';  // Import PrimaryButton
 import { styles } from './styles';
 import { verticalScale } from 'react-native-size-matters';
+import { RootState } from '../../store';
+import { useSelector } from 'react-redux';
+import Spinner from 'react-native-loading-spinner-overlay';
+
+import { BookingInput, useBooking } from '../../hooks/useBooking'
 
 // Define route params type
 type RootStackParamList = {
@@ -28,6 +33,10 @@ type RootStackParamList = {
 const AppointmentBookingScreen = () => {
     const { params } = useRoute<RouteProp<RootStackParamList, 'AppointmentBooking'>>();
     const { service, hospital } = params;
+
+    const userID = useSelector((state: RootState) => state.users.user.data?.id);
+    const navigation = useNavigation();
+    const { handleBooking, loading } = useBooking();
 
     const [date, setDate] = useState(new Date());
     const [time, setTime] = useState(new Date());
@@ -74,10 +83,32 @@ const AppointmentBookingScreen = () => {
         setShowTimePicker(false);  // Close time picker after selection
     };
 
-    const onSubmit = (data: any) => {
-        console.log('Booking appointment for:', data);
-        console.log('Date:', data.date.toLocaleDateString(), 'Time:', data.time.toLocaleTimeString(), 'Contact:', data.contact);
-        // Simulate API call or further logic here
+    const onSubmit = async (data: any) => {
+        try {
+
+            const createBookingInput: BookingInput = {
+                contactNumber: data.contact,  // Map 'contact' from form
+                bookingService: data.service,  // Map 'service' from form
+                bookingDate: new Date(data.date),
+                bookingTime: new Date(data.time),
+                hospitalId: parseInt(params.hospital.id),  // From route params
+                userID: userID === undefined ? 0 : userID,  // Ensure userID is set correctly
+            };
+
+            let res = await handleBooking(createBookingInput);  // Pass the mapped data
+
+
+            if (res) {
+                navigation.navigate('HospitalListScreen' as never);
+            }
+
+            // Simulate API booking
+            await new Promise((resolve) => setTimeout(resolve, 1500));
+        } catch (error) {
+            console.error('booking error:', error);
+        } finally {
+
+        }
     };
 
     return (
@@ -99,6 +130,14 @@ const AppointmentBookingScreen = () => {
 
             {/* Booking Header */}
             <Text style={styles.header}>Book Appointment for {selectedService}</Text>
+
+
+            <Spinner
+                visible={loading}
+                textContent={' Loading...'}
+            // color={colors.white}
+            // textStyle={{ color: colors.white }}
+            />
 
             {/* Scrollable Form */}
             <ScrollView style={styles.formContainer} contentContainerStyle={{ paddingBottom: verticalScale(20) }}>
@@ -210,3 +249,5 @@ const AppointmentBookingScreen = () => {
 };
 
 export default AppointmentBookingScreen;
+
+

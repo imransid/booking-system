@@ -37,7 +37,7 @@ export class BookingService {
         skip,
         take: limit,
         orderBy: {
-          createdAt: "desc", // ordering by createdAt (you can change this)
+          createdAt: "desc",
         },
       }),
       this.prisma.booking.count(),

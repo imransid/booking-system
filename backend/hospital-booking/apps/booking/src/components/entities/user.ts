@@ -1,5 +1,5 @@
 import { ObjectType, Field, Int } from "@nestjs/graphql";
-import { Booking } from "../entities/booking"; // Assuming you have a Booking entity
+import { Booking } from "../entities/booking";
 
 @ObjectType()
 export class User {
@@ -35,5 +35,4 @@ export class Auth {
 
   @Field()
   token: string;
-
 }

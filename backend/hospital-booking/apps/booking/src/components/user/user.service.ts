@@ -95,7 +95,7 @@ export class UserService {
       skip,
       take: limit,
       orderBy: {
-        createdAt: "desc", // Or any field you want to order by
+        createdAt: "desc",
       },
     });
 

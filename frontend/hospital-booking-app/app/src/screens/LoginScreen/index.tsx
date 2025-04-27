@@ -11,6 +11,9 @@ import ErrorText from '../../components/common/ErrorText';
 import { loginFormValidationSchema } from '../../utils/formValidation';
 import PrimaryButton from '../../components/common/PrimaryButton';
 
+
+import { useLogin } from '../../hooks/useLogin';
+
 interface ILoginFormData {
     email: string;
     password: string;
@@ -22,7 +25,8 @@ interface ILoginFormData {
  */
 const LoginScreen: React.FC = () => {
     const [secureText, setSecureText] = useState(true);
-    const [loading, setLoading] = useState(false);
+
+    const { handleLogin, loading } = useLogin();
 
     const {
         control,
@@ -42,14 +46,13 @@ const LoginScreen: React.FC = () => {
      */
     const onSubmit = async (data: ILoginFormData) => {
         try {
-            setLoading(true);
-            console.log('Login Form Data:', data);
+            await handleLogin(data);
             // Simulate API login
             await new Promise((resolve) => setTimeout(resolve, 1500));
         } catch (error) {
             console.error('Login error:', error);
         } finally {
-            setLoading(false);
+
         }
     };
 

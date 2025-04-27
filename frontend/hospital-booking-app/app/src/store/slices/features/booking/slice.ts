@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 import { BOOKING } from "./constants";
 import { type IBookingType } from "./types";
+import { BookingInput } from "@/app/src/hooks/useBooking";
 const repairEndTableCheckState: IBookingType = {
   errors: "",
   booking: [],
@@ -13,10 +14,11 @@ export const bookingSlice = createSlice({
   reducers: {
     successfullyTransactionsAction: (
       state: IBookingType,
-      payload: PayloadAction<IBookingType>
+      payload: PayloadAction<BookingInput>
     ) => {
-      state.errors = payload.payload.errors;
-      state.booking = payload.payload.booking;
+      if (state.booking) {
+        state.booking.push(payload.payload);
+      }
     },
   },
 });

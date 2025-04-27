@@ -1,14 +1,19 @@
+import { number } from "yup";
+
 // This type will represent the sub-state for getting a single user by ID
 export interface IUserState {
-  data: any | null;
-  isLoading: boolean;
-  errors: string;
-  loginStatus: boolean;
+  data: IUser | null;
+}
+
+export interface IUser {
+  id: number;
+  name: string;
+  token: string;
 }
 
 // The users global state
 export interface UsersStateType {
-  user: any;
+  user: IUserState;
   loader: boolean;
 }
 

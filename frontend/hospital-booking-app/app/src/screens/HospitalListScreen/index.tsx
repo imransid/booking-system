@@ -1,11 +1,12 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import { View, FlatList, TouchableOpacity, TextInput, Text, StyleSheet } from 'react-native';
+import { View, FlatList, TouchableOpacity, TextInput, Text } from 'react-native';
 import { Card, Title, Paragraph, Appbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { Image } from 'expo-image';
 import { SkeletonLoader } from '../../components/';
+import { useQuery } from '@apollo/client';
+import { GET_HOSPITALS_QUERY } from '../../queries/hostital.query';
 import { styles } from './styles';
-
 // Interface to define the structure of a Hospital object
 interface Hospital {
   id: string;
@@ -14,45 +15,50 @@ interface Hospital {
   imageUrl: string;
 }
 
-// Sample hospitals data
-const hospitals: Hospital[] = [
-  { id: '1', name: 'City Hospital', services: ['X-ray', 'Blood Test', 'MRI'], imageUrl: 'https://www.evercarebd.com/wp-content/themes/wp-bootstrap-starter-child/asset/img/Evercare-Dhaka-scaled.jpeg' },
-  { id: '2', name: 'Downtown Clinic', services: ['ECG', 'Blood Test', 'Ultrasound'], imageUrl: 'https://www.evercarebd.com/wp-content/themes/wp-bootstrap-starter-child/asset/img/Evercare-Dhaka-scaled.jpeg' },
-  { id: '3', name: 'Riverdale Hospital', services: ['X-ray', 'Surgery', 'Blood Test'], imageUrl: 'https://www.evercarebd.com/wp-content/themes/wp-bootstrap-starter-child/asset/img/Evercare-Dhaka-scaled.jpeg' },
-];
-
+// Hospital List Screen Component
 const HospitalListScreen = () => {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState<string>(''); // State for search query
   const [loadingImages, setLoadingImages] = useState<Record<string, boolean>>({}); // Track loading state of images
-  const [error, setError] = useState<string>(''); // State for error message
+
+  // Fetch hospital data using Apollo's useQuery hook
+  const { data, loading, error } = useQuery(GET_HOSPITALS_QUERY);
 
   // Validate search query and ensure it's a valid string
   const handleSearchQueryChange = (text: string) => {
-    if (text.trim() === '') {
-      setError('Search query cannot be empty.');
-    } else {
-      setError('');
-    }
     setSearchQuery(text);
   };
 
   // Memoized filter to avoid re-calculating filtered list on every render
   const filteredHospitals = useMemo(() => {
-    return hospitals.filter(hospital =>
+    return data?.hospitals?.hospitals.filter(hospital =>
       hospital.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [searchQuery]);
+  }, [searchQuery, data]);
 
   // Callback to handle hospital selection and navigate to another screen
   const handleHospitalSelect = useCallback((hospital: Hospital) => {
-    navigation.navigate('AppointmentBookingScreen', { hospital }); // Uncomment for navigation
-  }, []);
+    navigation.navigate('AppointmentBookingScreen', { hospital });
+  }, [navigation]);
 
   // Handler for when an image is loaded
   const handleImageLoad = useCallback((id: string) => {
     setLoadingImages(prevState => ({ ...prevState, [id]: false }));
   }, []);
+
+  // Render Loader or Error message based on Apollo Query state
+  if (loading) {
+    return <SkeletonLoader />;
+  }
+
+  if (error) {
+    return <Text style={{ color: 'red' }}>Failed to load hospitals. Please try again later.</Text>;
+  }
+
+  // If no hospitals found after filtering
+  if (filteredHospitals?.length === 0 && !loading && !error) {
+    return <Text>No hospitals found.</Text>;
+  }
 
   return (
     <View style={styles.container}>
@@ -70,13 +76,7 @@ const HospitalListScreen = () => {
           placeholder="Search hospitals..."
           style={styles.searchInput}
         />
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
       </View>
-
-      {/* Display an error message if no hospitals are found */}
-      {filteredHospitals.length === 0 && !error && (
-        <Text style={styles.noResultsText}>No hospitals found.</Text>
-      )}
 
       {/* List of hospitals with conditional rendering for loading images */}
       <FlatList

@@ -6,9 +6,9 @@ import {
   LoginInput,
   UsersPaginatedResult,
 } from "../dto/user.input";
-import { Auth, User } from "../entities/user"; // Assuming you have a User entity
+import { Auth, User } from "../entities/user";
 import { NotFoundException } from "@nestjs/common";
-import { GraphQLException } from "exceptions/graphql-exception"; // Assuming GraphQLException exists
+import { GraphQLException } from "exceptions/graphql-exception";
 
 @Resolver(() => User)
 export class UserResolver {
